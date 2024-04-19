@@ -2,7 +2,7 @@ pymongo
 flask
 pdfplumber
 openai
-pinecone
+pinecone-client
 langchain
 langchain_openai
 langchain_community
