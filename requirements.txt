@@ -1,0 +1,9 @@
+pymongo
+flask
+pdfplumber
+openai
+pinecone
+langchain
+langchain_openai
+langchain_community
+flask_cors
