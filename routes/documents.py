@@ -10,6 +10,9 @@ from langchain_community.llms import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from config import settings
 
+# Sleep
+import time
+
 documents_route = Blueprint("documents_route", __name__)
 
 
@@ -57,6 +60,8 @@ def send_message():
 # Endpoint for getting documents
 @documents_route.route("/getDocuments", methods=["GET"])
 def get_documents():
+    # Sleep for 10 seconds
+    time.sleep(10)
     documents = chat_db["documents"].find()
     documents_list = []
     for document in documents:
@@ -110,3 +115,23 @@ def upload_document():
             counter += 1
 
         return jsonify({"message": "Document uploaded successfully"}), 200
+
+
+# Endpoint to maintain chat history
+@documents_route.route("/chatHistory", methods=["POST"])
+def chat_history():
+    question = request.get_json()
+    answer = question["answer"]
+    feedback = question["feedback"]
+    document_id = question["document_id"]
+
+    chat_db["chat_history"].insert_one(
+        {
+            "document_id": document_id,
+            "question": question,
+            "answer": answer,
+            "feedback": feedback,
+        }
+    )
+
+    return jsonify({"message": "Chat history saved successfully"}), 200
