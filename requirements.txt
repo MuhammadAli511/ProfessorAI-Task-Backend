@@ -8,3 +8,4 @@ langchain_openai
 langchain_community
 flask_cors
 gunicorn
+pydantic-settings
