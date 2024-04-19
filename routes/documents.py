@@ -120,10 +120,11 @@ def upload_document():
 # Endpoint to maintain chat history
 @documents_route.route("/chatHistory", methods=["POST"])
 def chat_history():
-    question = request.get_json()
-    answer = question["answer"]
-    feedback = question["feedback"]
-    document_id = question["document_id"]
+    data = request.get_json()
+    question = data["question"]
+    answer = data["answer"]
+    feedback = data["feedback"]
+    document_id = data["document_id"]
 
     chat_db["chat_history"].insert_one(
         {
